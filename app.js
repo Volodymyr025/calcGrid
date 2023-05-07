@@ -1,5 +1,6 @@
 const sum = document.querySelector('.sum')
 const result = document.querySelector('.result')
+// const option = document.querySelectorAll('.option')
 // const num = document.querySelectorAll('.number')
 // const ac = document.querySelector('.ac')
 // const plus = document.querySelector('.plus')
@@ -8,7 +9,6 @@ const result = document.querySelector('.result')
 // const devide = document.querySelector('.devide')
 // const equal = document.querySelector('.equal')
 // const dot = document.querySelector('.dot')
-// const option = document.querySelectorAll('.option')
 let num = 0
 let resultSum = 0
 let option = ''
@@ -16,6 +16,7 @@ let memory
 
 
 function calc (param) {
+    // all clearn
     if(param === 'AC'){
         result.textContent = 0
         resultSum = 0
@@ -23,34 +24,57 @@ function calc (param) {
         option = ''
         num = 0
     }
+    // show number in input
     if(Number.isInteger(param)){
         sum.textContent += param
     }
+    // check operation
+    // if(param === '+' ||
+    //    param === '-' ||
+    //    param === '*' ||
+    //    param === '/'){
+    //       option = param
+    // }
+
+    // operation +
     if(param === '+'){
         if(sum.textContent === ''){
-            sum = 0
+            return
         }
         num = parseInt(sum.textContent)
-        resultSum += num
-        option = param
+        resultSum = num + resultSum
         sum.textContent = ''
+        return
     }
     if(param === '=' && option === '+'){
         result.textContent = resultSum + parseInt(sum.textContent)
         resultSum = parseInt(result.textContent) 
-        sum.textContent = ''       
+        sum.textContent = '' 
+        return      
     }
+    // operation -
     if(param === '-'){
+        if(sum.textContent === ''){
+            return
+        }
         num = parseInt(sum.textContent)
-        resultSum = num
-        option = param
+        resultSum = num - resultSum
         sum.textContent = ''
+        return
     }
     if(param === '=' && option === '-'){
         result.textContent = resultSum - parseInt(sum.textContent)
-        resultSum = parseInt(result.textContent)     
+        resultSum = parseInt(result.textContent) 
+        sum.textContent = '' 
+        return      
     }
     
+}
+
+
+const opration_type = {
+    name: Symbol,
+    number: false
 }
 
 
