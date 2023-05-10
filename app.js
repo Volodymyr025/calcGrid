@@ -1,168 +1,217 @@
 const sum = document.querySelector('.sum')
 const result = document.querySelector('.result')
-// const option = document.querySelectorAll('.option')
-// const num = document.querySelectorAll('.number')
-// const ac = document.querySelector('.ac')
-// const plus = document.querySelector('.plus')
-// const minus = document.querySelector('.minus')
-// const multiply = document.querySelector('.multiply')
-// const devide = document.querySelector('.devide')
-// const equal = document.querySelector('.equal')
-// const dot = document.querySelector('.dot')
-let num = 0
-let resultSum = 0
-let option = ''
-let memory
+const plus = document.querySelector('.plus')
+const minus = document.querySelector('.minus')
+const multiply = document.querySelector('.multiply')
+const division = document.querySelector('.divide')
+const equal = document.querySelector('.equal')
+const dot = document.querySelector('.dot')
+let num = null
+let resultSum = null
+let plus1 = false
+let minus1 = false
+let multi1 = false
+let devid1 = false
+
+
+
 
 
 function calc (param) {
     // all clearn
     if(param === 'AC'){
-        result.textContent = 0
-        resultSum = 0
+        result.textContent = '0'
+        resultSum = null
         sum.textContent = ''
-        option = ''
-        num = 0
+        num = null
+        plus1 = false
+        minus1 = false
+        multi1 = false
+        devid1 = false
     }
+   
     // show number in input
-    if(Number.isInteger(param)){
-        sum.textContent += param
+    if(Number.isInteger(param) || param === '.'){
+        const presBtn = sum.textContent += param
+        num = +presBtn
+        return       
     }
-    // check operation
-    // if(param === '+' ||
-    //    param === '-' ||
-    //    param === '*' ||
-    //    param === '/'){
-    //       option = param
-    // }
-
-    // operation +
-    if(param === '+'){
-        if(sum.textContent === ''){
-            return
-        }
-        num = parseInt(sum.textContent)
-        resultSum = num + resultSum
-        sum.textContent = ''
-        return
-    }
-    if(param === '=' && option === '+'){
-        result.textContent = resultSum + parseInt(sum.textContent)
-        resultSum = parseInt(result.textContent) 
-        sum.textContent = '' 
-        return      
-    }
-    // operation -
-    if(param === '-'){
-        if(sum.textContent === ''){
-            return
-        }
-        num = parseInt(sum.textContent)
-        resultSum = num - resultSum
-        sum.textContent = ''
-        return
-    }
-    if(param === '=' && option === '-'){
-        result.textContent = resultSum - parseInt(sum.textContent)
-        resultSum = parseInt(result.textContent) 
-        sum.textContent = '' 
-        return      
-    }
-    
 }
 
-
-const opration_type = {
-    name: Symbol,
-    number: false
-}
-
-
-
-
-
-
-
-
-
-
-// function getEl (el){
-//     debugger
-//     if(result.textContent !== ''&& el === plus && b === ''){
-//         a = parseInt(result.textContent)
-//     }
-//         else if(a !== ''){
-//             b = parseInt(result.textContent) 
-//         }
-//     }
-
-// function operationPlus (event){
-//     debugger
-//     if(event === plus){
-//     result.textContent = ''
-//     sum.textContent = event.textContent
-    
-//     }
-    // if(event === equal && sum.textContent === plus.textContent){
-    //     defaultResult = a + b
-    //     s = defaultResult
-    //     result.textContent += parseInt(s)
-    // }
-
-
-// function doubleSymbols (){
-//     if (
-//         sum.textContent.includes('++') ||
-//         sum.textContent.includes('--') ||
-//         sum.textContent.includes('**') ||
-//         sum.textContent.includes('//') ||
-//         sum.textContent.includes('+-') ||
-//         sum.textContent.includes('-+') ||
-//         sum.textContent.includes('+*') ||
-//         sum.textContent.includes('*+') ||
-//         sum.textContent.includes('+/') ||
-//         sum.textContent.includes('-*') ||
-//         sum.textContent.includes('*-') ||
-//         sum.textContent.includes('/-') ||
-//         sum.textContent.includes('-/') ||
-//         sum.textContent.includes('*/') ||
-//         sum.textContent.includes('/*') ||
-//         sum.textContent.includes('..') ||
-//         sum.textContent.includes('.+') ||
-//         sum.textContent.includes('+.') ||
-//         sum.textContent.includes('.-') ||
-//         sum.textContent.includes('-.') ||
-//         sum.textContent.includes('.*') ||
-//         sum.textContent.includes('*.') ||
-//         sum.textContent.includes('/.') ||
-//         sum.textContent.includes('./')
-//       ) {
-//         alert('Operation invalid, please press correctly');
-//         sum.textContent = sum.textContent.slice(0, -1);
-//       }
-// }
-
-
-// console.log(btn.length)
-
-
-// // show pressed button
-// for(let i = 0;i < btn.length;i++){
-//     clickBtn = () =>{
-//         debugger
-//         const btnNum = +btn[i].textContent
-//         const sumNum = result.textContent + btnNum
-//         result.textContent = +sumNum
-//         maxLineLength ()
-//         return
-//         }
-//     btn[i].addEventListener('click',clickBtn)
-// } 
-// for(let i = 0;i < option.length;i++){
-//     checkOption = () =>{
-//         debugger
-//         const btnNum = option[i].textContent
-//         sum.textContent = btnNum.textContent
-//             }
-//     option[i].addEventListener('click',checkOption)
-// }
+// plus button
+plus.addEventListener('click', operationPlus = () => {
+    if(minus1 === true && sum.textContent !== ''){
+        resultSum = +result.textContent - num
+        result.textContent = resultSum
+        num = null
+        sum.textContent = ''
+        minus1 = false
+    }
+    if(multi1 === true && sum.textContent !== ''){
+        resultSum = +result.textContent * num
+        result.textContent = resultSum
+        num = null
+        sum.textContent = ''
+        multi1 = false
+    }
+    if(devid1 === true && sum.textContent !== ''){
+        resultSum = +result.textContent / num
+        result.textContent = resultSum
+        num = null
+        sum.textContent = ''
+        devid1 = false
+    }
+    else if (plus1 === true){
+        resultSum = +result.textContent + num
+        result.textContent = resultSum
+        num = null
+        sum.textContent = ''
+    }
+    plus1 = true
+    return
+})
+// minus button
+minus.addEventListener('click', operationMinus = () => {
+    if(plus1 === true && sum.textContent !== ''){
+        resultSum = +result.textContent + num
+        result.textContent = resultSum
+        num = null
+        sum.textContent = ''
+        plus1 = false
+    }
+    if(multi1 === true && sum.textContent !== ''){
+        resultSum = +result.textContent * num
+        result.textContent = resultSum
+        num = null
+        sum.textContent = ''
+        multi1 = false
+    }
+    if(devid1 === true && sum.textContent !== ''){
+        resultSum = +result.textContent / num
+        result.textContent = resultSum
+        num = null
+        sum.textContent = ''
+        devid1 = false
+    }
+    else if(minus1 === true){
+    resultSum = +result.textContent - num
+    result.textContent = resultSum
+    num = null
+    sum.textContent = ''
+   }
+   minus1 = true
+   return
+})
+// multiply button
+multiply.addEventListener('click', operationMultiply = () => {
+    if(plus1 === true && sum.textContent !== ''){
+        resultSum = +result.textContent + num
+        result.textContent = resultSum
+        num = null
+        sum.textContent = ''
+        plus1 = false
+    }
+    if(minus1 === true && sum.textContent !== ''){
+        resultSum = +result.textContent - num
+        result.textContent = resultSum
+        num = null
+        sum.textContent = ''
+        minus1 = false
+    }
+    if(devid1 === true && sum.textContent !== ''){
+        resultSum = +result.textContent / num
+        result.textContent = resultSum
+        num = null
+        sum.textContent = ''
+        devid1 = false
+    }
+    else if(multi1 === true){
+        if(result.textContent == 0){
+            result.textContent = 1
+        }
+    resultSum = +result.textContent * num
+    result.textContent = resultSum
+    num = null
+    sum.textContent = ''
+   }
+   multi1 = true
+   return
+})
+// division button
+division.addEventListener('click', operationMultiply = () => {
+    if(plus1 === true && sum.textContent !== ''){
+        resultSum = +result.textContent + num
+        result.textContent = resultSum
+        num = null
+        sum.textContent = ''
+        plus1 = false
+    }
+    if(minus1 === true && sum.textContent !== ''){
+        resultSum = +result.textContent - num
+        result.textContent = resultSum
+        num = null
+        sum.textContent = ''
+        minus1 = false
+    }
+    if(multi1 === true && sum.textContent !== ''){
+        resultSum = +result.textContent * num
+        result.textContent = resultSum
+        num = null
+        sum.textContent = ''
+        multi1 = false
+    }
+    else if(devid1 === true){
+        if(result.textContent == 0){
+            result.textContent = 1
+        }
+    resultSum = +result.textContent / num
+    result.textContent = resultSum
+    num = null
+    sum.textContent = ''
+   }
+   devid1 = true
+   return
+})
+// equal button
+equal.addEventListener('click', operationPlus = () => {
+    if(plus1 === true && sum.textContent !== ''){
+        resultSum = +result.textContent + num
+        result.textContent = resultSum
+        sum.textContent = ''
+        plus1 = false
+        minus1 = false
+        multi1 = false
+        devid1 = false
+        return
+    }
+    if(minus1 === true && sum.textContent !== ''){
+        resultSum = +result.textContent - num
+        result.textContent = resultSum
+        sum.textContent = ''
+        plus1 = false
+        minus1 = false
+        multi1 = false
+        devid1 = false
+        return
+    }
+    if(multi1 === true && sum.textContent !== ''){
+        resultSum = +result.textContent * num
+        result.textContent = resultSum
+        sum.textContent = ''
+        plus1 = false
+        minus1 = false
+        multi1 = false
+        devid1 = false
+        return
+    }
+    if(devid1 === true && sum.textContent !== ''){
+        resultSum = +result.textContent / num
+        result.textContent = resultSum
+        sum.textContent = ''
+        plus1 = false
+        minus1 = false
+        multi1 = false
+        devid1 = false
+        return
+    }
+})
